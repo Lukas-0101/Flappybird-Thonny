@@ -417,7 +417,7 @@ def run(config_file):
     #p.add_reporter(neat.Checkpointer(5))
 
     # Run for up to 50 generations.
-    winner = p.run(eval_genomes, 50)
+    winner = p.run(eval_genomes, 2)
 
     # show final stats
     print('\nBest genome:\n{!s}'.format(winner))
@@ -425,7 +425,6 @@ def run(config_file):
     # Save the winner genome to a pickle .pkl file
     with open("winner.pkl", "wb") as f:
         pickle.dump(winner, f)
-    #
     #to play the endgame with only the best bird e.g.
     #play_with_best_bird("winner.pkl", config)
 
