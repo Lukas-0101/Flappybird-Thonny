@@ -354,6 +354,7 @@ def eval_genomes(genomes, config): #dit is de fitness functie, genomen worden ge
             #als de vogel 1 frame overleefd krijgt het 0.1 fitness punten
             ge[x].fitness += 0.1
             bird.move()
+            
 
             output = nets[birds.index(bird)].activate((bird.y, abs(bird.y - pipes[pipe_ind].height), abs(bird.y - pipes[pipe_ind].bottom)))
 
@@ -398,11 +399,6 @@ def eval_genomes(genomes, config): #dit is de fitness functie, genomen worden ge
                 birds.pop(birds.index(bird))
 
         draw_window(WIN, birds, pipes, base, score, gen, pipe_ind)
-        best_fitness = max(genome.fitness for _, genome in genomes)
-
-        if best_fitness >= config.fitness_threshold:
-            print(f"Fitness threshold bereikt: {best_fitness}")
-            run = False
         
 
 def run(config_file):
