@@ -32,6 +32,7 @@ base_img = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs","base.
 gen = 0
 
 class Bird:
+
     """
     Bird class representing the flappy bird
     """
@@ -349,6 +350,7 @@ def eval_genomes(genomes, config):
                 pipe_ind = 1
         
         for x, bird in enumerate(birds):
+            
             ge[x].fitness += 0.1
             bird.move()
 
@@ -383,7 +385,6 @@ def eval_genomes(genomes, config):
             
             for genome in ge:
                 genome.fitness += 5
-            
             pipes.append(Pipe(WIN_WIDTH))
 
         for r in rem:
@@ -396,6 +397,7 @@ def eval_genomes(genomes, config):
                 birds.pop(birds.index(bird))
 
         draw_window(WIN, birds, pipes, base, score, gen, pipe_ind)
+        
 
 def run(config_file):
     """
@@ -417,7 +419,7 @@ def run(config_file):
     #p.add_reporter(neat.Checkpointer(5))
 
     # Run for up to 50 generations.
-    winner = p.run(eval_genomes, 50)
+    winner = p.run(eval_genomes, 15)
 
     # show final stats
     print('\nBest genome:\n{!s}'.format(winner))
