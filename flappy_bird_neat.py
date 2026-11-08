@@ -94,7 +94,7 @@ class Bird:
 
     def draw(self, win):
         """
-        draw the bird
+         the bird
         :param win: pygame window or surface
         :return: None
         """
@@ -399,7 +399,11 @@ def eval_genomes(genomes, config): #dit is de fitness functie, genomen worden ge
                 birds.pop(birds.index(bird))
 
         draw_window(WIN, birds, pipes, base, score, gen, pipe_ind)
-        
+        best_fitness = max(genome.fitness for _, genome in genomes)
+
+        if best_fitness >= config.fitness_threshold:
+            print(f"Fitness threshold bereikt: {best_fitness}")
+            run = False
 
 def run(config_file):
     """
