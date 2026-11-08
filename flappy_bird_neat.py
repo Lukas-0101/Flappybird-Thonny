@@ -306,7 +306,7 @@ def draw_window(win, birds, pipes, base, score, gen, pipe_ind):
     pygame.display.update()
 
 
-def eval_genomes(genomes, config):
+def eval_genomes(genomes, config): #dit is de fitness functie, genomen worden geevalueerd met behlp van de config
     """
     runs the simulation of the current population of
     birds and sets their fitness based on the distance they
@@ -320,8 +320,9 @@ def eval_genomes(genomes, config):
     birds = []
     ge = []
     
+    #Hier worden de vogels "gemaakt" met een eigen neuraal netwerk
     for genome_id, genome in genomes:
-        genome.fitness = 0
+        genome.fitness = 0 #de fitness begtint met 0
         net = neat.nn.FeedForwardNetwork.create(genome, config)
         nets.append(net)
         birds.append(Bird(230,350))
@@ -350,7 +351,7 @@ def eval_genomes(genomes, config):
                 pipe_ind = 1
         
         for x, bird in enumerate(birds):
-            
+            #als de vogel 1 frame overleefd krijgt het 0.1 fitness punten
             ge[x].fitness += 0.1
             bird.move()
 
@@ -381,10 +382,10 @@ def eval_genomes(genomes, config):
                 add_pipe = True
 
         if add_pipe:
-            score += 1
+            score += 1 #as het door een pijp gaat krijgt het 1 punt (dit is geen fitness punten)
             
             for genome in ge:
-                genome.fitness += 5
+                genome.fitness += 5 #als de vogel door een pijp gaat krijgt het 5 fitness punten
             pipes.append(Pipe(WIN_WIDTH))
 
         for r in rem:
@@ -397,6 +398,11 @@ def eval_genomes(genomes, config):
                 birds.pop(birds.index(bird))
 
         draw_window(WIN, birds, pipes, base, score, gen, pipe_ind)
+        best_fitness = max(genome.fitness for _, genome in genomes)
+
+        if best_fitness >= config.fitness_threshold:
+            print(f"Fitness threshold bereikt: {best_fitness}")
+            run = False
         
 
 def run(config_file):
